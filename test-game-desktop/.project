@@ -3,6 +3,8 @@
 	<name>test-game-desktop</name>
 	<comment></comment>
 	<projects>
+		<project>test-game</project>
+		<project>test-game-android</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

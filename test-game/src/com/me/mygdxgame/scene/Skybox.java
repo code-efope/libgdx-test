@@ -142,11 +142,11 @@ public class Skybox implements Disposable
 
 	public void render(Camera camera)
 	{
-		Gdx.gl.glDisable(GL10.GL_DEPTH_TEST);
+		Gdx.gl20.glDisable(GL10.GL_DEPTH_TEST);
 
 		// Bind the texture
-		Gdx.gl.glActiveTexture(SKYBOX_TEXTURE_ACTIVE_UNIT);
-		Gdx.gl.glBindTexture(GL20.GL_TEXTURE_CUBE_MAP, textureId);
+		Gdx.gl20.glActiveTexture(SKYBOX_TEXTURE_ACTIVE_UNIT);
+		Gdx.gl20.glBindTexture(GL20.GL_TEXTURE_CUBE_MAP, textureId);
 
 		model.setToTranslation(camera.position);
 		model.rotate(1, 0, 0, 90);

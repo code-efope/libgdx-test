@@ -7,9 +7,8 @@ public class Settings
 	private static final float MOVEMENT_DISTANCE = 0.1f;
 	private static final float COLLISION_DISTANCE = 1.0f;
 	private static final float COLLISION_DISTANCE2 = COLLISION_DISTANCE * COLLISION_DISTANCE;
-	private static final int OCTREE_MIN_SIZE = 4;
-	private static final int OCTREE_MAX_NUM_DATA = 64;
-	private static final int OCTREE_MAX_DEPTH = 9;
+	private static final int OCTREE_MIN_SIZE = 2;
+	private static final int OCTREE_MAX_NUM_DATA = 32;
 	private static final int DEFAULT_SCENE_SIZE = 256;
 
 	public static int getViewDistance2()
@@ -45,11 +44,6 @@ public class Settings
 	public static int getOctreeMaxData()
 	{
 		return OCTREE_MAX_NUM_DATA;
-	}
-
-	public static int getOctreeMaxDepth()
-	{
-		return OCTREE_MAX_DEPTH;
 	}
 
 	public static int getSceneSize()

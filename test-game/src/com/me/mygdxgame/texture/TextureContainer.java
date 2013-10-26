@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
  * @author deDokter
@@ -16,6 +17,7 @@ public class TextureContainer
 {
 	private final static String folderName = "minecraft";
 	private final static Random rand = new Random();
+	private final static TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 
 	private final static String[] nameTexture =
 	{ "blockDiamond.png", "blockEmerald.png", "blockGold.png", "blockIron.png", "blockLapis.png", "blockRedstone.png",
@@ -32,6 +34,11 @@ public class TextureContainer
 			return getTexture();
 		else
 			return new Texture(Gdx.files.internal(folderName + "/" + nameTexture[index]));
+	}
+
+	public static Texture getTextureFromAtlas(String name)
+	{
+		return atlas.findRegion(name).getTexture();
 	}
 
 	public static String getTextureName()

@@ -1,4 +1,4 @@
-package com.me.mygdxgame.structure;
+package com.me.mygdxgame.scene.structure;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;

@@ -1,4 +1,4 @@
-package com.me.mygdxgame.structure;
+package com.me.mygdxgame.scene.structure;
 
 import java.util.HashMap;
 import java.util.Map;

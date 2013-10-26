@@ -1,16 +1,16 @@
-package com.me.mygdxgame.world;
+package com.me.mygdxgame.scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.Renderable;
+import com.badlogic.gdx.graphics.g3d.lights.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.lights.Lights;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.me.mygdxgame.input.FPSCameraController;
-import com.me.mygdxgame.scene.SceneManager;
-import com.me.mygdxgame.scene.Skybox;
 import com.me.mygdxgame.util.Settings;
 
 public class WorldRenderer implements Disposable
@@ -21,25 +21,27 @@ public class WorldRenderer implements Disposable
 	private final Vector3 lastPosition = new Vector3();
 	private float dist = 0.0f, innerDist;
 	private boolean checkCollision = false, positionAdjusted = false;
-	private final ModelBatch modelBatch = new ModelBatch();
 	private Array<ModelInstance> instances;
-	private Skybox skybox;
+	private final Skybox skybox = new Skybox();
+	private Lights lights;
+	private final FPSCameraController camController;
+//	private Fog fog = new Fog();
 
-	public WorldRenderer()
+	public WorldRenderer(FPSCameraController camController)
 	{
-		skybox = new Skybox();		
+		this.camController = camController;
+		lights = new Lights();
+		lights.ambientLight.set(0.4f, 0.9f, 0.0f, 1f);
+		lights.fog = new Color(0.1f, 0.1f, 0.1f, 1);
+		lights.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 	}
 
-	public void render(Lights lights, FPSCameraController camController)
+	public void render(ModelBatch modelBatch)
 	{
 		// calculate new position of camera after movement
 		camController.update();
 
-//		skyboxShader.begin();
-		skybox.render(camController.camera);
-//		skyboxShader.end();
-
-		modelBatch.begin(camController.camera);
+//		skybox.render();
 
 	    if (camController.moved())
 	    {
@@ -93,9 +95,11 @@ public class WorldRenderer implements Disposable
 			checkCollision = false;
 		}
 
-		modelBatch.end();
+//		fog.drawFog();
+
 		if (camController.moved())
 			camController.accept();
+
 	}
 
 	public boolean positionAdjusted()
@@ -106,8 +110,6 @@ public class WorldRenderer implements Disposable
 	@Override
 	public void dispose()
 	{
-		if (modelBatch != null)
-			modelBatch.dispose();
 		if (instances.size != 0)
 			instances.clear();
 		skybox.dispose();

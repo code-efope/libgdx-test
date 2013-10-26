@@ -42,7 +42,7 @@ public class SceneManager
 		Gdx.app.log(this.getClass().getName(), "instances: " + internalTree.getLoad(true));
 		Gdx.app.log(this.getClass().getName(), "octrees: " + internalTree.getLoad(false));
 		setShowPolygons(true);
-		setShowOctrees(false);
+		setShowOctrees(true);
 	}
 
 	public void setShowPolygons(boolean value)

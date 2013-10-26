@@ -1,4 +1,4 @@
-package com.me.mygdxgame.structure;
+package com.me.mygdxgame.scene.structure;
 
 import java.util.Map.Entry;
 
@@ -39,7 +39,7 @@ public class SimpleWall extends SimpleStructure
 				}
 			}
 		}
-		wallBox = ModelBuilderUtil.getInstance().getBox(1.0f, 1.0f, 1.0f, TextureContainer.getTexture(0));
+		wallBox = ModelBuilderUtil.getInstance().getBox(1.0f, 1.0f, 1.0f, TextureContainer.getTexture(2));
 		doorBox = ModelBuilderUtil.getInstance().getBox(1.0f, 1.0f, 1.0f, TextureContainer.getTexture(1));
 		createInstances();
 	}

@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.me.mygdxgame.scene.octree.OctreeIf;
 import com.me.mygdxgame.scene.octree.StaticOctree;
-import com.me.mygdxgame.structure.SimpleRoom;
+import com.me.mygdxgame.scene.structure.SimpleRoom;
 import com.me.mygdxgame.texture.TextureContainer;
 import com.me.mygdxgame.util.BinaryRandomizer;
 import com.me.mygdxgame.util.DataConverter;
@@ -103,9 +103,9 @@ public class MapLoader
 		}
 		else if (type == 3)
 		{
-			for (int roomX = 0; roomX < 10; roomX++)
+			for (int roomX = 0; roomX < 2; roomX++)
 			{
-				for (int roomZ = 0; roomZ < 10; roomZ++)
+				for (int roomZ = 0; roomZ < 2; roomZ++)
 				{
 					SimpleRoom room = new SimpleRoom(roomX * 9, -1, roomZ * 9, 7, 4, 7);
 					Array<ModelInstance> instances = room.getInstances();

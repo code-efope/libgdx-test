@@ -24,7 +24,6 @@ public class DynamicOctree implements OctreeIf
 	private final Vector3 center;
 	private final float diameter;
 	private final int maxInstances;
-	private final int currentDepth;
 	private final BoundingBox bounds;
 	private DynamicOctree children[] = null;
 	private Array<ModelInstance> instances = new Array<ModelInstance>();
@@ -38,16 +37,9 @@ public class DynamicOctree implements OctreeIf
 
 	public DynamicOctree(Vector3 center, float diameter, int maxInstances)
 	{
-		this(center, diameter, maxInstances, 0);
-	}
-
-	public DynamicOctree(Vector3 center, float diameter, int maxInstances,
-		int currentDepth)
-	{
 		this.center = new Vector3(center);
 		this.diameter = diameter;
 		this.maxInstances = maxInstances;
-		this.currentDepth = currentDepth;
 
 		Vector3 min = new Vector3(center).sub(diameter);
 		Vector3 max = new Vector3(center).add(diameter);
@@ -72,7 +64,7 @@ public class DynamicOctree implements OctreeIf
 			float zAdjust = newDiameter * (((childIndex & 0x04) >> 2) * 2 - 1);
 			newCenter.set(center.x - xAdjust, center.y - yAdjust, center.z - zAdjust);
 			children[childIndex] = new DynamicOctree(newCenter, newDiameter,
-				maxInstances, currentDepth + 1);
+				maxInstances);
 		}
 		if (talk)
 			Gdx.app.log(this.getClass().getName(), "" + diameter
@@ -113,7 +105,7 @@ public class DynamicOctree implements OctreeIf
 		instances.add(newInstance);
 		if (instances.size > maxInstances)
 		{
-			if (currentDepth <= Settings.getOctreeMaxDepth())
+			if (diameter > Settings.getOctreeMinSize())
 			{
 				/* no children present -> create new */
 				if (children == null)

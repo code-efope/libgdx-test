@@ -6,22 +6,25 @@ public class FPSCounter
 {
 	long startTime = System.nanoTime();
 	int frames = 0, lastFrames = 0, countFrames = 0, numFrames = 0;
+	String logString;
 
 	/**
 	 * count and display current fps
 	 */
-	public void logFrame()
+	public String logFrame()
 	{
 		frames++;
 		if (System.nanoTime() - startTime >= 1000000000)
 		{
-			Gdx.app.log(this.getClass().getName(), "fps/avg: " + frames + "/" + getAvarageFPS());
+			logString = "fps/avg: " + frames + "/" + getAvarageFPS();
+			Gdx.app.log(this.getClass().getName(), logString);
 			lastFrames = frames;
 			countFrames += frames;
 			numFrames++;
 			frames = 0;
 			startTime = System.nanoTime();
 		}
+		return logString;
 	}
 	
 	public int getAvarageFPS()

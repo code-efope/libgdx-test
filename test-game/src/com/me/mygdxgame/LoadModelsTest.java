@@ -5,11 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.me.mygdxgame.input.FPSCameraController;
 import com.me.mygdxgame.input.SettingsListener;
+import com.me.mygdxgame.scene.HUDRenderer;
 import com.me.mygdxgame.scene.WorldRenderer;
 import com.me.mygdxgame.util.FPSCounter;
 import com.me.mygdxgame.util.Settings;
@@ -19,12 +17,10 @@ public class LoadModelsTest implements ApplicationListener
 	private AssetManager assets;
 	private FPSCounter fpsCounter;
 	private WorldRenderer world;
+	private HUDRenderer hud;
 	private PerspectiveCamera cam;
 	private FPSCameraController camController;
 	private SettingsListener sl = new SettingsListener();
-	private Stage hud;
-	private Skin skin;
-	private Label fpsLabel;
 	private String text;
 
 	@Override
@@ -42,12 +38,8 @@ public class LoadModelsTest implements ApplicationListener
 		Gdx.input.setInputProcessor(camController);
 
 		world = new WorldRenderer(camController);
+		hud = new HUDRenderer();
 		fpsCounter = new FPSCounter();
-
-		hud = new Stage();
-		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-		fpsLabel = new Label("FPS: 999", skin);
-		hud.addActor(fpsLabel);
 	}
 
 	@Override
@@ -59,12 +51,9 @@ public class LoadModelsTest implements ApplicationListener
 
 		text = fpsCounter.logFrame();
 		world.render(Gdx.graphics.getDeltaTime());
-
-		fpsLabel.setText(text);
-		hud.act(Gdx.graphics.getDeltaTime());
 		
 		if (Settings.isHudActive())
-			hud.draw();
+			hud.render(text);
 	}
 
 	@Override

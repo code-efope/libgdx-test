@@ -3,8 +3,9 @@ package com.me.mygdxgame.scene.structure;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 import com.me.mygdxgame.texture.TextureContainer;
 import com.me.mygdxgame.util.ModelBuilderUtil;
 
@@ -38,11 +39,11 @@ public class SimpleWallOnePiece extends SimpleStructure
 	private void createInstances()
 	{
 		instances.clear();
-		instances.add(new ModelInstance(wallBox, originX, originY, originZ));
+		instances.add(new CollidableModelInstance(wallBox, new Vector3(originX, originY, originZ), true));
 	}
 
 	@Override
-	public Array<ModelInstance> getInstances()
+	public Array<CollidableModelInstance> getInstances()
 	{
 		return instances;
 	}

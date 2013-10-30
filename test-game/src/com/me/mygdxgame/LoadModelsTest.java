@@ -5,21 +5,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.me.mygdxgame.input.FPSCameraController;
-import com.me.mygdxgame.scene.GUIRenderer;
+import com.me.mygdxgame.input.SettingsListener;
 import com.me.mygdxgame.scene.WorldRenderer;
 import com.me.mygdxgame.util.FPSCounter;
+import com.me.mygdxgame.util.Settings;
 
 public class LoadModelsTest implements ApplicationListener
 {
 	private AssetManager assets;
 	private FPSCounter fpsCounter;
-	private ModelBatch modelBatch;
 	private WorldRenderer world;
-	private GUIRenderer gui;
 	private PerspectiveCamera cam;
 	private FPSCameraController camController;
+	private SettingsListener sl = new SettingsListener();
+	private Stage hud;
+	private Skin skin;
+	private Label fpsLabel;
 	private String text;
 
 	@Override
@@ -33,12 +38,16 @@ public class LoadModelsTest implements ApplicationListener
 		cam.update();
 
 		camController = new FPSCameraController(cam);
+		camController.registerListener(sl);
 		Gdx.input.setInputProcessor(camController);
 
-		modelBatch = new ModelBatch();
 		world = new WorldRenderer(camController);
-		gui = new GUIRenderer();
 		fpsCounter = new FPSCounter();
+
+		hud = new Stage();
+		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		fpsLabel = new Label("FPS: 999", skin);
+		hud.addActor(fpsLabel);
 	}
 
 	@Override
@@ -48,13 +57,14 @@ public class LoadModelsTest implements ApplicationListener
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		Gdx.gl.glClearColor(0.5f, 0.2f, 0.5f, 0.0f);
 
-		modelBatch.begin(camController.camera);
-		world.render(modelBatch);
-		
 		text = fpsCounter.logFrame();
-		gui.render(text);
+		world.render(Gdx.graphics.getDeltaTime());
 
-		modelBatch.end();
+		fpsLabel.setText(text);
+		hud.act(Gdx.graphics.getDeltaTime());
+		
+		if (Settings.isHudActive())
+			hud.draw();
 	}
 
 	@Override

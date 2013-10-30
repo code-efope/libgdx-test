@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.utils.Disposable;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 
 public class Skybox implements Disposable
 {
@@ -54,6 +56,7 @@ public class Skybox implements Disposable
 	private final static short[] ORDERED_INDICES =
 	{ 0, 1, 2, 3 };
 
+	private CollidableModelInstance[] instances = new CollidableModelInstance[NB_FACES];
 	private Mesh[] meshes = new Mesh[NB_FACES];
 	private final Texture[] textures = new Texture[NB_FACES];
 	private final static String textureFolder = "textures/";
@@ -73,6 +76,7 @@ public class Skybox implements Disposable
 	 */
 	public Skybox()
 	{
+		Model mod = new Model();
 		for (int i = 0; i < NB_FACES; i++)
 		{
 			textures[i] = new Texture(Gdx.files.internal(textureFolder + textureNames[i]));
@@ -82,6 +86,9 @@ public class Skybox implements Disposable
 			mesh.setVertices(getVertices(i));
 			mesh.setIndices(ORDERED_INDICES);
 			meshes[i] = mesh;
+			mod.meshes.add(mesh);
+			mod.manageDisposable(textures[i]);
+			instances[i] = new CollidableModelInstance(mod, false); 
 		}
 	}
 
@@ -106,6 +113,11 @@ public class Skybox implements Disposable
 			meshes[i].render(GL10.GL_TRIANGLE_STRIP);
 		}
 		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
+	}
+
+	public CollidableModelInstance[] getInstaces()
+	{
+		return instances;
 	}
 
 	@Override

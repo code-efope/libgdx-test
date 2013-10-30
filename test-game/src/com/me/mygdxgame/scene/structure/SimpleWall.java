@@ -3,9 +3,9 @@ package com.me.mygdxgame.scene.structure;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 import com.me.mygdxgame.texture.TextureContainer;
 import com.me.mygdxgame.util.ModelBuilderUtil;
 
@@ -63,12 +63,12 @@ public class SimpleWall extends SimpleStructure
 					break;
 			}
 			if (box != null)
-				instances.add(new ModelInstance(box, block.getKey()));
+				instances.add(new CollidableModelInstance(box, block.getKey(), true));
 		}
 	}
 
 	@Override
-	public Array<ModelInstance> getInstances()
+	public Array<CollidableModelInstance> getInstances()
 	{
 		return instances;
 	}

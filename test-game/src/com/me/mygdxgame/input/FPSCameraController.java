@@ -2,15 +2,18 @@ package com.me.mygdxgame.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 public class FPSCameraController extends CameraInputController
 {
 	public final Vector3 newPosition = new Vector3();
-	public int jumpKey = Keys.SPACE;
+	protected int jumpKey = Keys.SPACE;
 	protected boolean jumpPressed = false;
+	protected Array<InputAdapter> listener = new Array<InputAdapter>();
 
 	public FPSCameraController(Camera camera)
 	{
@@ -18,6 +21,11 @@ public class FPSCameraController extends CameraInputController
 		this.rotateLeftKey = Keys.A;
 		this.rotateRightKey = Keys.D;
 		this.rotateAngle = 90.0f;
+	}
+
+	public void registerListener(InputAdapter ia)
+	{
+		listener.add(ia);
 	}
 
 	public void accept()
@@ -82,6 +90,8 @@ public class FPSCameraController extends CameraInputController
 	@Override
 	public boolean keyDown(int keycode)
 	{
+		for (InputAdapter ia: listener)
+			ia.keyDown(keycode);
 		if (keycode == jumpKey)
 			jumpPressed = true;
 		return super.keyDown(keycode);
@@ -90,6 +100,8 @@ public class FPSCameraController extends CameraInputController
 	@Override
 	public boolean keyUp(int keycode)
 	{
+		for (InputAdapter ia: listener)
+			ia.keyUp(keycode);
 		if (keycode == jumpKey)
 			jumpPressed = false;
 		return super.keyUp(keycode);

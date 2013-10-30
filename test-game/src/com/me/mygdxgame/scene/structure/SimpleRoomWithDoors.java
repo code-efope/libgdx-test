@@ -1,7 +1,7 @@
 package com.me.mygdxgame.scene.structure;
 
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 
 /**
  * 
@@ -40,9 +40,9 @@ public class SimpleRoomWithDoors extends SimpleStructure
 	}
 
 	@Override
-	public Array<ModelInstance> getInstances()
+	public Array<CollidableModelInstance> getInstances()
 	{
-		Array<ModelInstance> instances = new Array<ModelInstance>();
+		Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
 		for (SimpleWall wall : walls)
 			instances.addAll(wall.getInstances());
 		return instances;

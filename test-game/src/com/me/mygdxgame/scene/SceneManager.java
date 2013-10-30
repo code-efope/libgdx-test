@@ -1,11 +1,11 @@
 package com.me.mygdxgame.scene;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.me.mygdxgame.loader.MapLoader;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 import com.me.mygdxgame.scene.octree.OctreeBuilder;
 import com.me.mygdxgame.scene.octree.OctreeBuilder.OctreeType;
 import com.me.mygdxgame.scene.octree.OctreeIf;
@@ -55,9 +55,9 @@ public class SceneManager
 		showOctrees = value;
 	}
 
-	public Array<ModelInstance> getInstances(Frustum frustum)
+	public Array<CollidableModelInstance> getInstances(Frustum frustum)
 	{
-		Array<ModelInstance> instances = new Array<ModelInstance>();
+		Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
 		if (showPolygons)
 			instances.addAll(internalTree.getInstances(frustum));
 		if (showOctrees)

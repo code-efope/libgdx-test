@@ -1,9 +1,9 @@
 package com.me.mygdxgame.scene.structure;
 
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 
 public interface SimpleStructureIf
 {
-	public Array<ModelInstance> getInstances();
+	public Array<CollidableModelInstance> getInstances();
 }

@@ -8,12 +8,13 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.materials.Material;
 import com.badlogic.gdx.graphics.g3d.materials.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 import com.me.mygdxgame.scene.octree.OctreeIf;
 import com.me.mygdxgame.scene.octree.StaticOctree;
 import com.me.mygdxgame.scene.structure.SimpleRoom;
@@ -80,7 +81,7 @@ public class MapLoader
 				if (!modelMap.containsKey(key))
 				{
 					modelMap.put(key, 0);
-					tree.insert(new ModelInstance(box, x, y, z));
+					tree.insert(new CollidableModelInstance(box, new Vector3(x, y, z), true));
 				}
 				else
 				{
@@ -97,7 +98,7 @@ public class MapLoader
 			{
 				for (int z = -150; z < 150; z += 2)
 				{
-					tree.insert(new ModelInstance(box, x, 0, z));
+					tree.insert(new CollidableModelInstance(box, new Vector3(x, 0, z), true));
 				}
 			}
 		}
@@ -108,8 +109,8 @@ public class MapLoader
 				for (int roomZ = 0; roomZ < 2; roomZ++)
 				{
 					SimpleRoom room = new SimpleRoom(roomX * 9, -1, roomZ * 9, 7, 4, 7);
-					Array<ModelInstance> instances = room.getInstances();
-					for (ModelInstance instance: instances)
+					Array<CollidableModelInstance> instances = room.getInstances();
+					for (CollidableModelInstance instance: instances)
 						tree.insert(instance);					
 				}
 			}

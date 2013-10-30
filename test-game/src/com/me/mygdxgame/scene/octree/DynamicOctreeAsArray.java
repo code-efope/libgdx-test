@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.graphics.g3d.materials.Material;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.scene.models.CollidableModelInstance;
 import com.me.mygdxgame.util.Settings;
 
 public class DynamicOctreeAsArray implements OctreeIf
@@ -24,9 +24,9 @@ public class DynamicOctreeAsArray implements OctreeIf
 	private final int baseIndex;
 	private final BoundingBox bounds;
 	private Vector<DynamicOctreeAsArray> children = new Vector<DynamicOctreeAsArray>();
-	private Array<ModelInstance> instances = new Array<ModelInstance>();
+	private Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
 	private static final boolean talk = false;
-	private final ModelInstance internalInstance;
+	private final CollidableModelInstance internalGridInstance;
 
 	public DynamicOctreeAsArray(Vector3 center, float diameter)
 	{
@@ -53,7 +53,7 @@ public class DynamicOctreeAsArray implements OctreeIf
 		ModelBuilder builder = new ModelBuilder();
 		Model octreeModel = builder.createBox(diameter * 2, diameter * 2, diameter * 2,
 			GL10.GL_LINES, new Material(), Usage.Position);
-		internalInstance = new ModelInstance(octreeModel, min);
+		internalGridInstance = new CollidableModelInstance(octreeModel, min, false);
 	}
 
 	private void createChildren()
@@ -90,7 +90,7 @@ public class DynamicOctreeAsArray implements OctreeIf
 	}
 
 	@Override
-	public boolean insert(ModelInstance newInstance)
+	public boolean insert(CollidableModelInstance newInstance)
 	{
 		boolean res = true;
 		Renderable ren = new Renderable();
@@ -114,7 +114,7 @@ public class DynamicOctreeAsArray implements OctreeIf
 			{
 				createChildren();
 				/* move all instances to children, including newly inserted instance */
-				for (ModelInstance instance : instances)
+				for (CollidableModelInstance instance : instances)
 				{
 					instance.getRenderable(ren);
 					ren.worldTransform.getTranslation(position);
@@ -138,9 +138,9 @@ public class DynamicOctreeAsArray implements OctreeIf
 	}
 
 	@Override
-	public Array<ModelInstance> getInstances(Frustum frustum)
+	public Array<CollidableModelInstance> getInstances(Frustum frustum)
 	{
-		Array<ModelInstance> res = new Array<ModelInstance>();
+		Array<CollidableModelInstance> res = new Array<CollidableModelInstance>();
 
 		if (frustum.boundsInFrustum(bounds))
 		{
@@ -156,9 +156,9 @@ public class DynamicOctreeAsArray implements OctreeIf
 	}
 
 	@Override
-	public Array<ModelInstance> getOctrees(Frustum frustum)
+	public Array<CollidableModelInstance> getOctrees(Frustum frustum)
 	{
-		Array<ModelInstance> res = new Array<ModelInstance>();
+		Array<CollidableModelInstance> res = new Array<CollidableModelInstance>();
 
 		if (frustum.boundsInFrustum(bounds))
 		{
@@ -169,7 +169,7 @@ public class DynamicOctreeAsArray implements OctreeIf
 			}
 			else
 			{
-				res.add(internalInstance);
+				res.add(internalGridInstance);
 			}
 		}
 		return res;

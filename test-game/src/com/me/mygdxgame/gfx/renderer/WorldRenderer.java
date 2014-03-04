@@ -1,11 +1,11 @@
 package com.me.mygdxgame.gfx.renderer;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.math.Vector3;
@@ -17,15 +17,17 @@ import com.me.mygdxgame.gfx.model.CollidableModelInstance;
 import com.me.mygdxgame.gfx.sector.BaseSector;
 import com.me.mygdxgame.gfx.sector.SectorBuilder;
 import com.me.mygdxgame.gfx.sector.Skybox;
+import com.me.mygdxgame.gfx.sprites.DecalSprite;
 import com.me.mygdxgame.input.FPSCameraController;
 import com.me.mygdxgame.interfaces.RendererIf;
-import com.me.mygdxgame.interfaces.Resizeable;
 import com.me.mygdxgame.util.DiagnosisDataProvider;
 import com.me.mygdxgame.util.DisposableManager;
 import com.me.mygdxgame.util.Settings;
+import com.me.mygdxgame.util.TextureProvider;
 
-public class WorldRenderer implements Disposable, RendererIf, Resizeable
+public class WorldRenderer implements Disposable, RendererIf
 {
+	private final String className = this.getClass().getSimpleName();
 	private final BlockRenderer scene = new BlockRenderer();
 	private final Vector3 renPos = new Vector3();
 	private final Vector3 lastPosition = new Vector3();
@@ -61,13 +63,27 @@ public class WorldRenderer implements Disposable, RendererIf, Resizeable
 		disManager.addDisposable(modelBatch);
 		disManager.addDisposable(skybox);
 
-		Gdx.app.log("renderer", "has " + sb.testOverlaps() + " overlaps");
+		Gdx.app.log(className, "has " + sb.testOverlaps() + " overlaps");
 
 //		ModelLoader<ObjLoaderParameters> loader = new ObjLoader();
 //		Model model = loader.loadModel(Gdx.files.internal("data/cube.obj"));
-//      mapinstance = new ModelInstance(model);
+//		mapinstance = new ModelInstance(model);
 	}
 
+	@Override
+	public void dispose()
+	{
+		if (instances != null && instances.size != 0)
+			instances.clear();
+		disManager.dispose();
+	}
+
+	@Override
+	public void render()
+	{
+	}
+
+	@Override
 	public void render(float deltaTime)
 	{
 		boolean checkCollision = false, positionAdjusted = false;
@@ -94,9 +110,8 @@ public class WorldRenderer implements Disposable, RendererIf, Resizeable
 		modelBatch.flush();
 
 		// render sector
-//		for (BaseSector s : sb.getSectors())
-//			instances.addAll(sr.getInstances(camController.camera, s, true));
-		for (BaseSector s : sb.getSector(camController.camera.position))
+		for (BaseSector s : sb.getSectors()) // get all sectors
+//		for (BaseSector s : sb.getSector(camController.camera.position)) // get visible sectors
 			instances.addAll(sr.getInstances(camController.camera, s, true));
 
 //		instances.addAll(sr.getInstances(camController.camera, sb.getSectors(), true));
@@ -147,9 +162,9 @@ public class WorldRenderer implements Disposable, RendererIf, Resizeable
 						if (innerDist <= Settings.getCollisionDistance2())
 //						if (cameraBounds.intersects(instance.getBounds()))
 						{
-							Gdx.app.log("main", "camera " + cameraBounds);
-							Gdx.app.log("main", "instance " + instance.getBounds());
-							Gdx.app.log("main", "" + camController.camera.position
+							Gdx.app.log(className, "camera " + cameraBounds);
+							Gdx.app.log(className, "instance " + instance.getBounds());
+							Gdx.app.log(className, "" + camController.camera.position
 								+ " collides with " + renPos + " dist: " + innerDist);
 							positionAdjusted = true;
 						}
@@ -176,12 +191,13 @@ public class WorldRenderer implements Disposable, RendererIf, Resizeable
 		if (camController.hasMoved())
 			camController.accept();
 
-//		DecalBatch db = new DecalBatch();
-//		Decal d = Decal.newDecal(9, 6, new TextureRegion(TextureContainer.getTexture(1)));
-//		d.setPosition(2.0f, 1.0f, 0.5f);
-//		d.rotateX(camController.camera.position.x);
-//		db.add(d);
-//		db.flush();
+		DecalBatch db = new DecalBatch();
+		DecalSprite d = new DecalSprite().build(TextureProvider.getFullTextureName(1));
+		d.sprite.setDimensions(1, 1);
+		d.sprite.setPosition(2.0f, 1.0f, 0.5f);
+		d.faceCamera(camController.camera);
+		db.add(d.sprite);
+		db.flush();
 
 		modelBatch.end();
 
@@ -192,23 +208,5 @@ public class WorldRenderer implements Disposable, RendererIf, Resizeable
 			pointLight.set(new Color(0.8f, 0.8f, 0.8f, 0.0f),
 				camController.camera.position, 1.0f);
 		}
-	}
-
-	@Override
-	public void dispose()
-	{
-		if (instances != null && instances.size != 0)
-			instances.clear();
-		disManager.dispose();
-	}
-
-	@Override
-	public void resize(int width, int height)
-	{
-	}
-
-	@Override
-	public void render()
-	{
 	}
 }

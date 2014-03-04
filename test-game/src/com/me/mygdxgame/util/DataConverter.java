@@ -1,14 +1,13 @@
-/**
- * 
- */
 package com.me.mygdxgame.util;
 
-/**
- * @author deDokter
- *
- */
 public class DataConverter
 {
+	/**
+	 * convert consecutive values in a byte array to a 32bit integer
+	 * @param array
+	 * @param start
+	 * @return
+	 */
 	public static int ByteArrayToInt(byte[] array, int start)
 	{
 		if (array.length < (start + 4))

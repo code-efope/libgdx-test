@@ -2,6 +2,11 @@ package com.me.mygdxgame.util;
 
 import java.util.Random;
 
+/**
+ * perlin noise generator
+ * @author deDokter
+ *
+ */
 public class NoiseGenerator
 {
 	public static int seed = 100;

@@ -2,6 +2,11 @@ package com.me.mygdxgame.util;
 
 import java.util.Random;
 
+/**
+ * generates random values based on binary numbers
+ * @author deDokter
+ *
+ */
 public class BinaryRandomizer
 {
 	private static Random rand = new Random();

@@ -3,6 +3,7 @@ package com.me.mygdxgame.gfx.hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -27,10 +28,9 @@ public class HUDManager extends InputListener implements RendererIf
 	private final Label fpsLabel, timeLabel, posLabel, infoLabel, settingsLabel;
 	private final TextField textField, resultField;
 	private final Slider slider;
-	public final Vector3 position = new Vector3();
-	public final Vector3 lookat = new Vector3();
-	public String text;
-	private int height, width;
+	private final Vector3 position = new Vector3();
+	private final Vector3 lookat = new Vector3();
+	private String text;
 	private InputListener listener = new InputListener()
 	{
 		@Override
@@ -39,17 +39,18 @@ public class HUDManager extends InputListener implements RendererIf
 			if (keycode == InputMapper.KEYS.SETTINGS.TOGGLE_CONSOLE)
 				Settings.toggleConsole();
 
+			/* when console is not active, do not handle input events */
 			if (!Settings.isConsoleActive())
 				return false;
 
+			/* enter executes the current entered command */
 			if (keycode == Keys.ENTER)
 			{
-				Gdx.app.log(this.toString(), "Enter received");
 				ScriptResult res = scripter.execute(textField.getText());
 				if (res.success)
-					resultField.setText("script good: " + res.message);
+					resultField.setText(res.message);
 				else
-					resultField.setText("script bad: " + res.message);
+					resultField.setText("error: " + res.message);
 			}
 			return true;
 		}
@@ -57,8 +58,8 @@ public class HUDManager extends InputListener implements RendererIf
 
 	public HUDManager()
 	{
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
 
 		hudStage = new Stage();
 		hudStage.addListener(listener);
@@ -122,13 +123,15 @@ public class HUDManager extends InputListener implements RendererIf
 		hudStage.draw();
 	}
 
-	public Stage getStage()
+	public void update(Camera cam, int fps)
 	{
-		return hudStage;
+		position.set(cam.position);
+		lookat.set(cam.direction);
+		text = "" + fps;		
 	}
 
 	public InputAdapter getInputAdapter()
 	{
-		return getStage();
+		return hudStage;
 	}
 }

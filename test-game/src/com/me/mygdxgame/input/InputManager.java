@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class InputManager extends GestureDetector
 {
-	public List<InputAdapter> adapters = new ArrayList<InputAdapter>();
+	/* the listeners are sorted by insertion, thus the first one has the highest priority */
+	private List<InputAdapter> adapters = new ArrayList<InputAdapter>();
 
 	public InputManager()
 	{
@@ -18,21 +19,18 @@ public class InputManager extends GestureDetector
 			@Override
 			public boolean zoom(float initialDistance, float distance)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean touchDown(float x, float y, int pointer, int button)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean tap(float x, float y, int count, int button)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
@@ -40,45 +38,45 @@ public class InputManager extends GestureDetector
 			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
 				Vector2 pointer1, Vector2 pointer2)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean panStop(float x, float y, int pointer, int button)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean pan(float x, float y, float deltaX, float deltaY)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean longPress(float x, float y)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public boolean fling(float velocityX, float velocityY, int button)
 			{
-				// TODO Auto-generated method stub
 				return false;
 			}
 		});
-		// TODO Auto-generated constructor stub
+	}
+
+	public void addInputListener(InputAdapter adapter)
+	{
+		if (adapter != null)
+			adapters.add(adapter);
 	}
 
 	@Override
 	public boolean keyDown(int keycode)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.keyDown(keycode))
 				return true;
@@ -89,7 +87,7 @@ public class InputManager extends GestureDetector
 	@Override
 	public boolean keyUp(int keycode)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.keyUp(keycode))
 				return true;
@@ -100,7 +98,7 @@ public class InputManager extends GestureDetector
 	@Override
 	public boolean keyTyped(char character)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.keyTyped(character))
 				return true;
@@ -110,7 +108,7 @@ public class InputManager extends GestureDetector
 
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.touchDown(screenX, screenY, pointer, button))
 				return true;
@@ -120,7 +118,7 @@ public class InputManager extends GestureDetector
 
 	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.touchUp(screenX, screenY, pointer, button))
 				return true;
@@ -130,7 +128,7 @@ public class InputManager extends GestureDetector
 
 	public boolean touchDragged(int screenX, int screenY, int pointer)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.touchDragged(screenX, screenY, pointer))
 				return true;
@@ -141,7 +139,7 @@ public class InputManager extends GestureDetector
 	@Override
 	public boolean mouseMoved(int screenX, int screenY)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.mouseMoved(screenX, screenY))
 				return true;
@@ -152,17 +150,11 @@ public class InputManager extends GestureDetector
 	@Override
 	public boolean scrolled(int amount)
 	{
-		for (InputAdapter adapter: adapters)
+		for (InputAdapter adapter : adapters)
 		{
 			if (adapter.scrolled(amount))
 				return true;
 		}
 		return false;
-	}
-
-	public void addInputListener(InputAdapter adapter)
-	{
-		if (adapter != null)
-			adapters.add(adapter);
 	}
 }

@@ -16,12 +16,13 @@ import com.me.mygdxgame.util.Settings;
 
 public class EngineTest implements ApplicationListener
 {
-	private WorldRenderer world;
+	private final String className = this.getClass().getSimpleName();
 	private HUDManager hud;
-	private PerspectiveCamera cam;
-	private FPSCameraController camController;
 	private final InputManager inputMan = new InputManager();
 	private final DisposableManager disManager = new DisposableManager();
+	private WorldRenderer world;
+	private PerspectiveCamera cam;
+	private FPSCameraController camController;
 
 	@Override
 	public void create()
@@ -37,18 +38,18 @@ public class EngineTest implements ApplicationListener
 
 		camController = new FPSCameraController(cam);
 		inputMan.addInputListener(hud.getInputAdapter());
+		inputMan.addInputListener(camController);
 		inputMan.addInputListener(new SettingsInputListener());
 		inputMan.addInputListener(new MovementListener());
-		inputMan.addInputListener(camController);
+
+		Gdx.input.setInputProcessor(inputMan);
 
 		world = new WorldRenderer(camController);
 		disManager.addDisposable(world);
 
 		DisplayMode[] modes = Gdx.graphics.getDisplayModes();
 		for (DisplayMode mode: modes)
-			Gdx.app.log(this.toString(), mode.toString());
-
-		Gdx.input.setInputProcessor(inputMan);
+			Gdx.app.log(className, mode.toString());
 	}
 
 	@Override
@@ -61,9 +62,7 @@ public class EngineTest implements ApplicationListener
 
 		if (Settings.isHudActive())
 		{
-			hud.position.set(cam.position);
-			hud.lookat.set(cam.direction);
-			hud.text = "" + Gdx.graphics.getFramesPerSecond();
+			hud.update(cam, Gdx.graphics.getFramesPerSecond());
 			hud.render();
 		}
 	}
@@ -77,16 +76,18 @@ public class EngineTest implements ApplicationListener
 	@Override
 	public void resize(int width, int height)
 	{
-		Gdx.app.log("main", "resized");
+		Gdx.app.log(className, "resized");
 	}
 
 	@Override
 	public void pause()
 	{
+		Gdx.app.log(className, "paused");
 	}
 
 	@Override
 	public void resume()
 	{
+		Gdx.app.log(className, "resumed");
 	}
 }

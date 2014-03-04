@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.me.mygdxgame.util;
 
 import java.util.Random;
@@ -8,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 
 /**
+ * generates grayscale or alphablended colors
  * @author deDokter
  *
  */

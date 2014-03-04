@@ -14,10 +14,8 @@ public class Main
 		cfg.width = 640;
 		cfg.height = 480;
 		cfg.fullscreen = false;
-		cfg.vSyncEnabled = false;
+		cfg.vSyncEnabled = true;
 		cfg.resizable = false;
-//		cfg.backgroundFPS = -1;
-//		cfg.foregroundFPS = -1;
 
 		for (String arg: args)
 		{
@@ -27,9 +25,23 @@ public class Main
 				cfg.height = Integer.parseInt(arg.substring(7));
 			else if (arg.startsWith("-fullscreen"))
 				cfg.fullscreen = true;
-			else if (arg.startsWith("-vsync"))
+			else if (arg.startsWith("-usevsync"))
 				cfg.vSyncEnabled = true;
+			else if (arg.startsWith("-nolimitfps"))
+			{
+				cfg.backgroundFPS = -1;
+				cfg.foregroundFPS = -1;				
+			}
+			else if (arg.startsWith("-help"))
+			{
+				System.out.println("Options:");
+				System.out.println("-xsize=xxx");
+				System.out.println("-ysize=yyy");
+				System.out.println("-fullscreen");
+				System.out.println("-usevsync");
+				System.out.println("-nolimitfps");
+			}
 		}
-		new LwjglApplication(new LoadModelsTest(), cfg);
+		new LwjglApplication(new EngineTest(), cfg);
 	}
 }

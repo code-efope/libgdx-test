@@ -11,18 +11,20 @@ public class FPSCounter
 	/**
 	 * count and display current fps
 	 */
-	public String logFrame()
+	public String logFrame(final boolean console)
 	{
 		frames++;
 		if (System.nanoTime() - startTime >= 1000000000)
 		{
 			logString = "fps/avg: " + frames + "/" + getAvarageFPS();
-			Gdx.app.log(this.getClass().getName(), logString);
 			lastFrames = frames;
 			countFrames += frames;
 			numFrames++;
 			frames = 0;
 			startTime = System.nanoTime();
+
+			if (console)
+				Gdx.app.log(this.getClass().getName(), logString);
 		}
 		return logString;
 	}

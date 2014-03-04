@@ -2,21 +2,25 @@ package com.me.mygdxgame.util;
 
 public class Settings
 {
-	private static final int VIEW_DISTANCE = 160;
+	private static int VISUAL_RANGE = 900;
 	private static final int SCENE_TYPE = 3;
 	private static final float MOVEMENT_DISTANCE = 0.1f;
 	private static final float COLLISION_DISTANCE = 1.0f;
 	private static final float COLLISION_DISTANCE2 = COLLISION_DISTANCE * COLLISION_DISTANCE;
-	private static final int OCTREE_MIN_SIZE = 2;
-	private static final int OCTREE_MAX_NUM_DATA = 32;
-	private static final int DEFAULT_SCENE_SIZE = 256;
+	private static final int MAX_OBJECT_COUNT = 5000;
+	private static final float OCTREE_MIN_SIZE = 2;
+	private static final int OCTREE_MAX_NUM_DATA = 64;
+	private static final int DEFAULT_SCENE_SIZE = 64;
 	private static boolean COLLISION_ACTIVE = true;
 	private static boolean LIGHTING_ACTIVE = false;
 	private static boolean HUD_ACTIVE = true;
+	private static boolean CONSOLE_ACTIVE = false;
+	private static boolean SHOW_OCTREES = false;
+	private static boolean SHOW_PORTALS = true;
 
 	public static int getViewDistance2()
 	{
-		return VIEW_DISTANCE;
+		return VISUAL_RANGE;
 	}
 
 	public static int getSceneType()
@@ -39,7 +43,7 @@ public class Settings
 		return COLLISION_DISTANCE2;
 	}
 	
-	public static int getOctreeMinSize()
+	public static float getOctreeMinSize()
 	{
 		return OCTREE_MIN_SIZE;
 	}
@@ -61,10 +65,7 @@ public class Settings
 	
 	public static void toggleCollision()
 	{
-		if (COLLISION_ACTIVE)
-			COLLISION_ACTIVE = false;
-		else
-			COLLISION_ACTIVE = true;
+		COLLISION_ACTIVE = !COLLISION_ACTIVE;
 	}
 
 	public static boolean isLightingActive()
@@ -74,10 +75,7 @@ public class Settings
 	
 	public static void toggleLighting()
 	{
-		if (LIGHTING_ACTIVE)
-			LIGHTING_ACTIVE = false;
-		else
-			LIGHTING_ACTIVE = true;
+		LIGHTING_ACTIVE = !LIGHTING_ACTIVE;
 	}
 
 	public static boolean isHudActive()
@@ -87,9 +85,53 @@ public class Settings
 	
 	public static void toggleHud()
 	{
-		if (HUD_ACTIVE)
-			HUD_ACTIVE = false;
-		else
-			HUD_ACTIVE = true;
+		HUD_ACTIVE = !HUD_ACTIVE;
+	}
+
+	public static boolean isConsoleActive()
+	{
+		return CONSOLE_ACTIVE;
+	}
+	
+	public static void toggleConsole()
+	{
+		CONSOLE_ACTIVE = !CONSOLE_ACTIVE;
+	}
+
+	public static boolean showOctrees()
+	{
+		return SHOW_OCTREES;
+	}
+	
+	public static void toggleShowOctrees()
+	{
+		SHOW_OCTREES = !SHOW_OCTREES;
+	}
+
+	public static void increaseVisualRange()
+	{
+		if (VISUAL_RANGE < 900)
+			VISUAL_RANGE += 100;
+	}
+
+	public static void decreaseVisualRange()
+	{
+		if (VISUAL_RANGE > 100)
+			VISUAL_RANGE -= 100;
+	}
+
+	public static int getMaxObjectCount()
+	{
+		return MAX_OBJECT_COUNT;
+	}
+
+	public static boolean showPortals()
+	{
+		return SHOW_PORTALS;
+	}
+	
+	public static void toggleShowPortals()
+	{
+		SHOW_PORTALS = !SHOW_PORTALS;
 	}
 }

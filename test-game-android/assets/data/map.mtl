@@ -1,0 +1,4 @@
+newmtl {cufence
+map_Kd {cufence.bmp
+newmtl cugrounda
+map_Kd cugrounda.bmp

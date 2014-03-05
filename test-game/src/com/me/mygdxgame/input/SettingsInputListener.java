@@ -6,6 +6,8 @@ import com.me.mygdxgame.util.Settings;
 
 public class SettingsInputListener extends InputAdapter
 {
+	private final String className = this.getClass().getSimpleName();
+
 	@Override
 	public boolean keyDown(int keycode)
 	{
@@ -31,14 +33,14 @@ public class SettingsInputListener extends InputAdapter
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
-		Gdx.app.log(this.toString(), "touchDown");
+		Gdx.app.log(className, "touchDown");
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		Gdx.app.log(this.toString(), "touchUp");
+		Gdx.app.log(className, "touchUp");
 		return false;
 	}
 }

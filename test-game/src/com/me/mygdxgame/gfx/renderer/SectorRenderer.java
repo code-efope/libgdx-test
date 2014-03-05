@@ -17,6 +17,7 @@ import com.me.mygdxgame.gfx.sector.Portal;
  */
 public class SectorRenderer
 {
+	private final String className = this.getClass().getSimpleName();
 	private final Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
 	private final Camera subCam;
 
@@ -73,7 +74,7 @@ public class SectorRenderer
 			}
 		}
 		else
-			Gdx.app.log(this.getClass().getSimpleName(), "no suitable sector found for " + camera.position);
+			Gdx.app.log(className, "no suitable sector found for " + camera.position);
 		return instances;
 	}
 

@@ -12,6 +12,7 @@ import com.me.mygdxgame.util.Settings;
 public class BlockRenderer
 {
 	private static final String DEFAULT_MAP_NAME = "maps/default.map";
+	private final String className = this.getClass().getSimpleName();
 	private boolean showPolygons;
 	private DynamicOctree<CollidableModelInstance> internalTree;
 	private MapLoader loader;
@@ -37,8 +38,8 @@ public class BlockRenderer
 		loader = new MapLoader(mapName);
 		loader.load(internalTree, Settings.getSceneType());
 
-		Gdx.app.log(this.getClass().getName(), "instances: " + internalTree.getLoad(true));
-		Gdx.app.log(this.getClass().getName(), "octrees: " + internalTree.getLoad(false));
+		Gdx.app.log(className, "instances: " + internalTree.getLoad(true));
+		Gdx.app.log(className, "octrees: " + internalTree.getLoad(false));
 		setShowPolygons(true);
 	}
 

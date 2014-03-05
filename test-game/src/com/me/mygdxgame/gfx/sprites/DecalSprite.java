@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
 public class DecalSprite
 {
-
 	public Decal sprite;
 
 	public DecalSprite()

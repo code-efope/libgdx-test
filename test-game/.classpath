@@ -2,9 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Media/Coding/Java/lib/libgdx/gdx-backend-jglfw-natives.jar" sourcepath="D:/Media/Coding/Java/lib/libgdx/sources/gdx-backend-lwjgl-sources.jar"/>
-	<classpathentry kind="lib" path="D:/Media/Coding/Java/lib/libgdx/gdx.jar" sourcepath="D:/Media/Coding/Java/lib/libgdx/sources/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="D:/Media/Coding/Java/lib/libgdx/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="D:/Media/Coding/Java/lib/libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="D:/Media/Coding/Java/lib/libgdx/extensions/gdx-tools/sources/gdx-tools-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-tools.jar"/>
+	<classpathentry kind="lib" path="libs/gdx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

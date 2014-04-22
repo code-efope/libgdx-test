@@ -32,13 +32,14 @@ public class WorldRenderer implements Disposable, RendererIf
 	private final Vector3 renPos = new Vector3();
 	private final Vector3 lastPosition = new Vector3();
 	private final Array<CollidableModelInstance> instances;
-	private final Skybox skybox;
+	private final Skybox skybox = new Skybox();
 	private final FPSCameraController camController;
-	private final ModelBatch modelBatch;
+	private final ModelBatch modelBatch = new ModelBatch();;
 	private final DirectionalLight dirLight;
 	private final PointLight pointLight;
 	private final Environment environment;
 	private final DisposableManager disManager;
+	private final DecalRenderer dr;
 	private final SectorRenderer sr = new SectorRenderer();
 	private final SectorBuilder sb = new SectorBuilder(1);
 	private final BoundingBox cameraBounds = new BoundingBox();
@@ -54,9 +55,8 @@ public class WorldRenderer implements Disposable, RendererIf
 		environment.set(ColorAttribute.createSpecular(0.5f, 0.3f, 0.8f, 0.5f));
 		environment.add(dirLight);
 		environment.add(pointLight);
+		dr = new DecalRenderer(camController);
 
-		modelBatch = new ModelBatch();
-		skybox = new Skybox();
 		instances = new Array<CollidableModelInstance>();
 
 		disManager = new DisposableManager();
@@ -110,8 +110,8 @@ public class WorldRenderer implements Disposable, RendererIf
 		modelBatch.flush();
 
 		// render sector
-		for (BaseSector s : sb.getSectors()) // get all sectors
-//		for (BaseSector s : sb.getSector(camController.camera.position)) // get visible sectors
+//		for (BaseSector s : sb.getSectors()) // get all sectors
+		for (BaseSector s : sb.getSector(camController.camera.position)) // get visible sectors
 			instances.addAll(sr.getInstances(camController.camera, s, true));
 
 //		instances.addAll(sr.getInstances(camController.camera, sb.getSectors(), true));
@@ -188,16 +188,10 @@ public class WorldRenderer implements Disposable, RendererIf
 			checkCollision = false;
 		}
 
+		dr.render();
+
 		if (camController.hasMoved())
 			camController.accept();
-
-		DecalBatch db = new DecalBatch();
-		DecalSprite d = new DecalSprite().build(TextureProvider.getFullTextureName(1));
-		d.sprite.setDimensions(1, 1);
-		d.sprite.setPosition(2.0f, 1.0f, 0.5f);
-		d.faceCamera(camController.camera);
-		db.add(d.sprite);
-		db.flush();
 
 		modelBatch.end();
 

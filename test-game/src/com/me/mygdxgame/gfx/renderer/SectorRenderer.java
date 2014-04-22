@@ -40,12 +40,18 @@ public class SectorRenderer
 
 	public BaseSector getCurrentSector(final Vector3 position, final BaseSector[] sectors)
 	{
+		BaseSector res = null;
+		int numSectors = 0;
 		for (BaseSector sector: sectors)
 		{
 			if (sector.isWithinSector(position))
-				return sector;
+			{
+				res = sector;
+				numSectors++;
+			}
 		}
-		return null;
+		Gdx.app.log(className, "" + numSectors + " sector(s) found for " + position);		
+		return res;
 	}
 
 	public Array<CollidableModelInstance> getInstances(final Camera camera, final BaseSector startSector, final boolean followPortals)

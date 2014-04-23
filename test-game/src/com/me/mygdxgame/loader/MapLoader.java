@@ -113,15 +113,15 @@ public class MapLoader
 		}
 		else if (type == 3)
 		{
-			for (int roomX = 0; roomX < 1; roomX++)
+			for (int roomX = 0; roomX < 10; roomX++)
 			{
-				for (int roomZ = 0; roomZ < 1; roomZ++)
+				for (int roomZ = 0; roomZ < 10; roomZ++)
 				{
-					SimpleTiledWall wall = new SimpleTiledWall(-10 + roomX * 9, -1, -10
-						+ roomZ * 9, 7, 4, 7);
+					SimpleTiledWall wall = new SimpleTiledWall(-10 + roomX * 11, -1, -10
+						+ roomZ * 11, 3, 4, 3);
 					SimpleRoom room = new SimpleRoom( //
 						-10 + roomX * 9, -1, -10 + roomZ * 9, 7, 4, 7);
-					Array<CollidableModelInstance> instances = wall.getAllInstances(null);
+					Array<CollidableModelInstance> instances = wall.getInstances();
 					for (CollidableModelInstance instance : instances)
 						tree.insert(instance);
 				}

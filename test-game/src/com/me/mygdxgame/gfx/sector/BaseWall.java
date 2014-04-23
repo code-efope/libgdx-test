@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.utils.Array;
 import com.me.mygdxgame.gfx.model.CollidableModelInstance;
 import com.me.mygdxgame.interfaces.Treeable;
 
@@ -57,8 +58,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 1].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 1.0f;
-			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 1].x : 1.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 1].y : 0.0f;
 		}
 
 		vertices[vertIndex++] = edges[offset + 2].x;
@@ -66,8 +67,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 2].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 0.0f;
-			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 1.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 2].x : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 2].y : 1.0f;
 		}
 
 		vertices[vertIndex++] = edges[offset + 3].x;
@@ -75,8 +76,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 3].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 0.0f;
-			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 3].x : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset + 3].y : 0.0f;
 		}
 
 		createMesh(vertices, ORDERED_INDICES, color, texture, hasNormal, blend);
@@ -163,6 +164,14 @@ public class BaseWall implements Treeable
 		instance = new CollidableModelInstance(model, true);
 		model.calculateBoundingBox(bounds);
 //		instance.calculateBoundingBox(bounds);
+	}
+
+	public Array<CollidableModelInstance> getInstances()
+	{
+		Array<CollidableModelInstance> res = new Array<CollidableModelInstance>();
+		res.add(instance);
+
+		return res;
 	}
 
 	@Override

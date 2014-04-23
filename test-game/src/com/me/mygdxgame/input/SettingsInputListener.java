@@ -33,14 +33,14 @@ public class SettingsInputListener extends InputAdapter
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
-		Gdx.app.log(className, "touchDown");
+		Gdx.app.log(className, "touchDown: " + screenX + "/" + screenY + " " + pointer + " " + button);
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		Gdx.app.log(className, "touchUp");
+		Gdx.app.log(className, "touchUp: " + screenX + "/" + screenY + " " + pointer + " " + button);
 		return false;
 	}
 }

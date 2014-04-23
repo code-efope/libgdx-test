@@ -88,17 +88,18 @@ public class WorldRenderer implements Disposable, RendererIf
 		float dist = 0.0f, innerDist;
 
 		DaylightSimulation.updateTime(deltaTime);
+		dr.moveDecal("sunDecal", DaylightSimulation.getSunPosition());
 
 		instances.clear();
 		DiagnosisDataProvider.numInstances = 0;
 		DiagnosisDataProvider.numMeshes = 0;
 		DiagnosisDataProvider.numVertices = 0;
 
-		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
-
 		// calculate new position of camera after movement
 		camController.update();
 		modelBatch.begin(camController.camera);
+
+		Gdx.gl.glDisable(GL10.GL_DEPTH_TEST);
 
 		cameraBounds.set(new Vector3(camController.camera.position).sub(0.2f),
 			new Vector3(camController.camera.position).add(0.2f));
@@ -108,6 +109,8 @@ public class WorldRenderer implements Disposable, RendererIf
 			.getAllInstances(camController.camera))
 			modelBatch.render(instance);
 		modelBatch.flush();
+
+		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
 
 		// render sector
 		for (BaseSector s : sb.getSectors()) // get all sectors

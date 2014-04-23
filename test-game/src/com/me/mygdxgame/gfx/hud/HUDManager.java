@@ -108,7 +108,7 @@ public class HUDManager extends InputListener implements RendererIf
 		fpsLabel.setText(text);
 		posLabel.setText("position: " + position + " " + lookat);
 		timeLabel.setText("time: " + (int) DaylightSimulation.getTime() + ":"
-			+ (int) (DaylightSimulation.getTime() * 60.0f) % 60);
+			+ (int) (DaylightSimulation.getTime() * 60.0f) % 60 + " " + DaylightSimulation.getSunPosition());
 		infoLabel.setText("visible (I/M/V): " + DiagnosisDataProvider.numInstances + "/"
 			+ DiagnosisDataProvider.numMeshes + "/" + DiagnosisDataProvider.numVertices
 			+ " maxDist: " + Settings.getViewDistance2());

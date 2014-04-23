@@ -50,6 +50,9 @@ public class EngineTest implements ApplicationListener
 		DisplayMode[] modes = Gdx.graphics.getDisplayModes();
 		for (DisplayMode mode: modes)
 			Gdx.app.log(className, mode.toString());
+		
+		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
+		Gdx.gl.glEnable(GL10.GL_ALPHA_TEST);
 	}
 
 	@Override
@@ -57,7 +60,8 @@ public class EngineTest implements ApplicationListener
 	{
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-			
+		Gdx.gl10.glAlphaFunc(GL10.GL_GREATER, 0);
+
 		world.render(Gdx.graphics.getDeltaTime());
 
 		if (Settings.isHudActive())

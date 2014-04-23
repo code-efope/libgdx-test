@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.me.mygdxgame.gfx.model.CollidableModelInstance;
 import com.me.mygdxgame.gfx.octree.BaseOctree;
 import com.me.mygdxgame.gfx.octree.OctreeIf;
-import com.me.mygdxgame.gfx.structure.SimpleRoom;
 import com.me.mygdxgame.gfx.structure.SimpleTiledWall;
 import com.me.mygdxgame.util.BinaryRandomizer;
 import com.me.mygdxgame.util.DataConverter;
@@ -119,8 +118,6 @@ public class MapLoader
 				{
 					SimpleTiledWall wall = new SimpleTiledWall(-10 + roomX * 11, -1, -10
 						+ roomZ * 11, 3, 4, 3);
-					SimpleRoom room = new SimpleRoom( //
-						-10 + roomX * 9, -1, -10 + roomZ * 9, 7, 4, 7);
 					Array<CollidableModelInstance> instances = wall.getInstances();
 					for (CollidableModelInstance instance : instances)
 						tree.insert(instance);

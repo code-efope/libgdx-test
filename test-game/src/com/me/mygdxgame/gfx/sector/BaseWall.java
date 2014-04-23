@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.me.mygdxgame.gfx.model.CollidableModelInstance;
@@ -24,7 +25,7 @@ public class BaseWall implements Treeable
 	protected final static int EDGES_PER_WALL = 4;
 	protected Mesh mesh;
 	protected Model model;
-	protected CollidableModelInstance instance;
+	public CollidableModelInstance instance;
 	protected BoundingBox bounds = new BoundingBox();
 
 	protected BaseWall()
@@ -32,7 +33,7 @@ public class BaseWall implements Treeable
 	}
 
 	public BaseWall(final Vector3[] edges, final int offset, final Color color,
-		final Texture texture, final boolean hasNormal, final boolean blend)
+		final Texture texture, final boolean hasNormal, final boolean blend, Vector2[] uv)
 	{
 		float vertices[] = null;
 		
@@ -47,8 +48,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = 1;
-			vertices[vertIndex++] = 1;			
+			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 1.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 1.0f;
 		}
 
 		vertices[vertIndex++] = edges[offset + 1].x;
@@ -56,8 +57,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 1].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = 1;
-			vertices[vertIndex++] = 0;			
+			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 1.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 0.0f;
 		}
 
 		vertices[vertIndex++] = edges[offset + 2].x;
@@ -65,8 +66,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 2].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = 0;
-			vertices[vertIndex++] = 1;			
+			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 1.0f;
 		}
 
 		vertices[vertIndex++] = edges[offset + 3].x;
@@ -74,8 +75,8 @@ public class BaseWall implements Treeable
 		vertices[vertIndex++] = edges[offset + 3].z;
 		if (texture != null)
 		{
-			vertices[vertIndex++] = 0;
-			vertices[vertIndex++] = 0;			
+			vertices[vertIndex++] = (uv != null) ? uv[offset].x : 0.0f;
+			vertices[vertIndex++] = (uv != null) ? uv[offset].y : 0.0f;
 		}
 
 		createMesh(vertices, ORDERED_INDICES, color, texture, hasNormal, blend);
@@ -84,17 +85,17 @@ public class BaseWall implements Treeable
 	public BaseWall(final Vector3[] edges, final int offset, final Color color,
 		final Texture texture)
 	{
-		this(edges, offset, color, texture, false, false);
+		this(edges, offset, color, texture, false, false, null);
 	}
 
 	public BaseWall(final Vector3[] edges, final int offset, final Color color, final Texture texture, final boolean hasNormal)
 	{
-		this(edges, offset, color, texture, hasNormal, false);
+		this(edges, offset, color, texture, hasNormal, false, null);
 	}
 
 	public BaseWall(final Vector3[] edges, final int offset, final Color color)
 	{
-		this(edges, offset, color, null, false, false);
+		this(edges, offset, color, null, false, false, null);
 	}
 
 	public BaseWall(final Vector3[] edges, final int offset)

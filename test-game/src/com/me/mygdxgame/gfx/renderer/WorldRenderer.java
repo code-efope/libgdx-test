@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.math.Vector3;
@@ -14,16 +13,14 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.me.mygdxgame.gfx.DaylightSimulation;
 import com.me.mygdxgame.gfx.model.CollidableModelInstance;
-import com.me.mygdxgame.gfx.sector.BaseSector;
 import com.me.mygdxgame.gfx.sector.SectorBuilder;
 import com.me.mygdxgame.gfx.sector.Skybox;
-import com.me.mygdxgame.gfx.sprites.DecalSprite;
 import com.me.mygdxgame.input.FPSCameraController;
 import com.me.mygdxgame.interfaces.RendererIf;
+import com.me.mygdxgame.interfaces.Treeable;
 import com.me.mygdxgame.util.DiagnosisDataProvider;
 import com.me.mygdxgame.util.DisposableManager;
 import com.me.mygdxgame.util.Settings;
-import com.me.mygdxgame.util.TextureProvider;
 
 public class WorldRenderer implements Disposable, RendererIf
 {
@@ -111,8 +108,8 @@ public class WorldRenderer implements Disposable, RendererIf
 
 		// render sector
 //		for (BaseSector s : sb.getSectors()) // get all sectors
-		for (BaseSector s : sb.getSector(camController.camera.position)) // get visible sectors
-			instances.addAll(sr.getInstances(camController.camera, s, true));
+//		for (BaseSector s : sb.getSector(camController.camera.position)) // get visible sectors
+//			instances.addAll(sr.getInstances(camController.camera, s, true));
 
 //		instances.addAll(sr.getInstances(camController.camera, sb.getSectors(), true));
 
@@ -130,11 +127,11 @@ public class WorldRenderer implements Disposable, RendererIf
 		// get instances from SceneManager
 		if (scene != null)
 		{
-//			for (Treeable t: scene.getInstances(camController.camera.frustum))
-//				if (t instanceof CollidableModelInstance)
-//					instances.add((CollidableModelInstance)t);
+			for (Treeable t: scene.getInstances(camController.camera.frustum))
+				if (t instanceof CollidableModelInstance)
+					instances.add((CollidableModelInstance)t);
 		}
-//			instances.addAll(scene.getInstances(camController.camera.frustum));
+		instances.addAll(scene.getInstances(camController.camera.frustum));
 
 		// process all received instances
 		for (CollidableModelInstance instance : instances)

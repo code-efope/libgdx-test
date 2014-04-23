@@ -18,6 +18,7 @@ import com.me.mygdxgame.gfx.model.CollidableModelInstance;
 import com.me.mygdxgame.gfx.octree.BaseOctree;
 import com.me.mygdxgame.gfx.octree.OctreeIf;
 import com.me.mygdxgame.gfx.structure.SimpleRoom;
+import com.me.mygdxgame.gfx.structure.SimpleTiledWall;
 import com.me.mygdxgame.util.BinaryRandomizer;
 import com.me.mygdxgame.util.DataConverter;
 import com.me.mygdxgame.util.NoiseGenerator;
@@ -116,9 +117,11 @@ public class MapLoader
 			{
 				for (int roomZ = 0; roomZ < 1; roomZ++)
 				{
+					SimpleTiledWall wall = new SimpleTiledWall(-10 + roomX * 9, -1, -10
+						+ roomZ * 9, 7, 4, 7);
 					SimpleRoom room = new SimpleRoom( //
 						-10 + roomX * 9, -1, -10 + roomZ * 9, 7, 4, 7);
-					Array<CollidableModelInstance> instances = room.getInstances();
+					Array<CollidableModelInstance> instances = wall.getAllInstances(null);
 					for (CollidableModelInstance instance : instances)
 						tree.insert(instance);
 				}

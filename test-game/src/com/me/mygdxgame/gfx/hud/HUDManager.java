@@ -31,6 +31,8 @@ public class HUDManager extends InputListener implements RendererIf
 	private final Vector3 position = new Vector3();
 	private final Vector3 lookat = new Vector3();
 	private String text;
+	private String className = this.getClass().getSimpleName();
+
 	private InputListener listener = new InputListener()
 	{
 		@Override
@@ -47,11 +49,10 @@ public class HUDManager extends InputListener implements RendererIf
 			if (keycode == Keys.ENTER)
 			{
 				ScriptResult res = scripter.execute(textField.getText());
-				if (res.success)
-					resultField.setText(res.message);
-				else
-					resultField.setText("error: " + res.message);
+				resultField.setText(res.message);
+				Gdx.app.log(className, "result: " + res.success);
 			}
+			//Gdx.app.log(className, "key " + keycode + " handled.");
 			return true;
 		}
 	};

@@ -1,5 +1,6 @@
 package com.me.mygdxgame;
 
+import com.badlogic.gdx.Version;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -10,11 +11,11 @@ public class Main
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		/* init default values */
 		cfg.title = "test-game";
-		cfg.useGL20 = true;
+		cfg.useGL30 = false;
 		cfg.width = 640;
 		cfg.height = 480;
 		cfg.fullscreen = false;
-		cfg.vSyncEnabled = true;
+		cfg.vSyncEnabled = false;
 		cfg.resizable = false;
 
 		for (String arg: args)
@@ -42,6 +43,8 @@ public class Main
 				System.out.println("-nolimitfps");
 			}
 		}
+		
+		System.out.println("Running " + Version.VERSION);
 		new LwjglApplication(new EngineTest(), cfg);
 	}
 }

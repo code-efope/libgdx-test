@@ -22,6 +22,8 @@ public class MovementListener extends InputAdapter
 			Gdx.app.log(className, "jump key");
 		else
 			return false;
+
+		Gdx.app.log(className, "key " + keycode + " handled.");
 		return true;
 	}
 }

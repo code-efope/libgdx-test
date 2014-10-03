@@ -1,7 +1,7 @@
 package com.me.mygdxgame.gfx.sector;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
@@ -129,8 +129,8 @@ public class BaseWall implements Treeable
 		if (texture != null)
 			mat.set(TextureAttribute.createDiffuse(texture));
 		if (blend)
-			mat.set(new BlendingAttribute(true, GL10.GL_SRC_ALPHA,
-				GL10.GL_ONE_MINUS_SRC_ALPHA, 1.0f));
+			mat.set(new BlendingAttribute(true, GL20.GL_SRC_ALPHA,
+				GL20.GL_ONE_MINUS_SRC_ALPHA, 1.0f));
 
 		// create meshes
 		if (texture != null && hasNormal)
@@ -156,7 +156,7 @@ public class BaseWall implements Treeable
 		mesh.setIndices(ORDERED_INDICES);
 
 		builder.begin();
-		builder.part("wall", mesh, GL10.GL_TRIANGLE_STRIP, mat);
+		builder.part("wall", mesh, GL20.GL_TRIANGLE_STRIP, mat);
 		model = builder.end();
 
 		if (texture != null)

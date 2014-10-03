@@ -19,7 +19,7 @@ public class BlockRenderer
 
 	public BlockRenderer()
 	{
-		this(Settings.getSceneSize());
+		this(Settings.getSceneSize(), DEFAULT_MAP_NAME);
 	}
 	
 	public BlockRenderer(int sceneSize)

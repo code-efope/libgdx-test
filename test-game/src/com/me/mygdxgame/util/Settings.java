@@ -3,7 +3,7 @@ package com.me.mygdxgame.util;
 public class Settings
 {
 	private static int VISUAL_RANGE = 1900;
-	private static final int SCENE_TYPE = 3;
+	private static final int SCENE_TYPE = 1;
 	private static final float MOVEMENT_DISTANCE = 0.1f;
 	private static final float COLLISION_DISTANCE = 1.0f;
 	private static final float COLLISION_DISTANCE2 = COLLISION_DISTANCE * COLLISION_DISTANCE;

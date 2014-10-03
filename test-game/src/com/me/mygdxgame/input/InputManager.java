@@ -3,6 +3,7 @@ package com.me.mygdxgame.input;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +26,7 @@ public class InputManager extends GestureDetector
 			@Override
 			public boolean touchDown(float x, float y, int pointer, int button)
 			{
+				Gdx.app.log("InputManager", "touchDown at " + x + "/" + y + " with " + pointer + " " + button);
 				return false;
 			}
 

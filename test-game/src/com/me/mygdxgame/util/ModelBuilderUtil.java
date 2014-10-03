@@ -1,7 +1,7 @@
 package com.me.mygdxgame.util;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
@@ -36,7 +36,7 @@ public class ModelBuilderUtil
 
 	public Model getBox(float sizeX, float sizeY, float sizeZ, Texture texture)
 	{
-		return getBox(sizeX, sizeY, sizeZ, GL10.GL_TRIANGLES, texture);
+		return getBox(sizeX, sizeY, sizeZ, GL20.GL_TRIANGLES, texture);
 	}
 
 	public Model getBox(float sizeX, float sizeY, float sizeZ, int primitive,
@@ -57,7 +57,7 @@ public class ModelBuilderUtil
 
 	public Model getBox(float sizeX, float sizeY, float sizeZ, Color color)
 	{
-		return getBox(sizeX, sizeY, sizeZ, GL10.GL_TRIANGLES, color);
+		return getBox(sizeX, sizeY, sizeZ, GL20.GL_TRIANGLES, color);
 	}
 
 	public Model getBox(float sizeX, float sizeY, float sizeZ, int primitive, Color color)

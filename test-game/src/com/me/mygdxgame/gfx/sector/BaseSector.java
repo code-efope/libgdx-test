@@ -2,7 +2,7 @@ package com.me.mygdxgame.gfx.sector;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -58,7 +58,7 @@ public abstract class BaseSector implements SectorIf, Treeable
 			bounds.ext(wall.bounds);
 
 		Vector3 size = bounds.getDimensions();
-		boundsInstance = new CollidableModelInstance(ModelBuilderUtil.getInstance().getBox(size.x, size.y, size.z, GL10.GL_LINES, new Color(0.5f, 0.3f, 0.6f, 0.5f)));
+		boundsInstance = new CollidableModelInstance(ModelBuilderUtil.getInstance().getBox(size.x, size.y, size.z, GL20.GL_LINES, new Color(0.5f, 0.3f, 0.6f, 0.5f)));
 		boundsInstance.transform.setToTranslation(bounds.getCenter());
 	}
 

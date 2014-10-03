@@ -2,12 +2,13 @@ package com.me.mygdxgame.gfx.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
+import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
@@ -32,7 +33,7 @@ public class WorldRenderer implements Disposable, RendererIf
 	private final Array<CollidableModelInstance> instances;
 	private final Skybox skybox = new Skybox();
 	private final FPSCameraController camController;
-	private final ModelBatch modelBatch = new ModelBatch();;
+	private final ModelBatch modelBatch = new ModelBatch(new DefaultShaderProvider());;
 	private final DirectionalLight dirLight;
 	private final PointLight pointLight;
 	private final Environment environment;
@@ -50,7 +51,8 @@ public class WorldRenderer implements Disposable, RendererIf
 		environment = new Environment();
 		dirLight = new DirectionalLight();
 		pointLight = new PointLight();
-		environment.set(ColorAttribute.createSpecular(0.5f, 0.3f, 0.8f, 0.5f));
+		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.5f, 0.3f, 0.8f, 0.5f));
+		environment.set(new ColorAttribute(ColorAttribute.Fog, 0.13f, 0.13f, 0.13f, 1f));
 		environment.add(dirLight);
 		environment.add(pointLight);
 		dr = new DecalRenderer(camController);
@@ -99,7 +101,7 @@ public class WorldRenderer implements Disposable, RendererIf
 		camController.update();
 		modelBatch.begin(camController.camera);
 
-		Gdx.gl.glDisable(GL10.GL_DEPTH_TEST);
+		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
 
 		cameraBounds.set(new Vector3(camController.camera.position).sub(0.2f),
 			new Vector3(camController.camera.position).add(0.2f));
@@ -107,10 +109,10 @@ public class WorldRenderer implements Disposable, RendererIf
 		// render skybox
 		for (CollidableModelInstance instance : skybox
 			.getAllInstances(camController.camera))
-			modelBatch.render(instance);
+			modelBatch.render(instance, environment);
 		modelBatch.flush();
 
-		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
+		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
 
 		// render sector
 		for (BaseSector s : sb.getSectors()) // get all sectors
@@ -137,7 +139,7 @@ public class WorldRenderer implements Disposable, RendererIf
 //				if (t instanceof CollidableModelInstance)
 //					instances.add((CollidableModelInstance)t);
 		}
-//		instances.addAll(scene.getInstances(camController.camera.frustum));
+		instances.addAll(scene.getInstances(camController.camera.frustum));
 
 		// process all received instances
 		for (CollidableModelInstance instance : instances)

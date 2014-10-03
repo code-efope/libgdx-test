@@ -3,7 +3,7 @@ package com.me.mygdxgame;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.me.mygdxgame.gfx.hud.HUDManager;
 import com.me.mygdxgame.gfx.renderer.WorldRenderer;
@@ -51,16 +51,16 @@ public class EngineTest implements ApplicationListener
 		for (DisplayMode mode: modes)
 			Gdx.app.log(className, mode.toString());
 		
-		Gdx.gl.glEnable(GL10.GL_DEPTH_TEST);
-		Gdx.gl.glEnable(GL10.GL_ALPHA_TEST);
+		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//		Gdx.gl.glEnable(GL20.GL_ALPHA_TEST);
 	}
 
 	@Override
 	public void render()
 	{
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-		Gdx.gl10.glAlphaFunc(GL10.GL_GREATER, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		Gdx.gl.glEnable(GL20.GL_TEXTURE_2D);
 
 		world.render(Gdx.graphics.getDeltaTime());
 

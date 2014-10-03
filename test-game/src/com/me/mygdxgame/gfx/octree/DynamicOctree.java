@@ -2,7 +2,7 @@ package com.me.mygdxgame.gfx.octree;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
@@ -50,7 +50,7 @@ public class DynamicOctree<T extends Treeable> extends BaseOctree<T>
 		Model octreeModel = ModelBuilderUtil.getInstance().getBox(
 		//
 			diameter * 2, diameter * 2, diameter * 2, //
-			GL10.GL_LINES, octreeColor);
+			GL20.GL_LINES, octreeColor);
 		internalGridInstance = new CollidableModelInstance(octreeModel, center, false);
 	}
 

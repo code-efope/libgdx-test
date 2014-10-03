@@ -27,6 +27,8 @@ public class SettingsInputListener extends InputAdapter
 			Settings.toggleShowPortals();
 		else
 			return false;
+
+		Gdx.app.log(className, "key " + keycode + " handled.");
 		return true;
 	}
 

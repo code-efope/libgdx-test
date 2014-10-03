@@ -1,7 +1,7 @@
 package com.me.mygdxgame.gfx.octree;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -71,7 +71,7 @@ public class StaticOctree<T extends Treeable> extends BaseOctree<T>
 		this.bounds = new BoundingBox(min, max);
 
 		ModelBuilder builder = new ModelBuilder();
-		Model octreeModel = builder.createBox(diameter * 2, diameter * 2, diameter * 2, GL10.GL_LINES, new Material(), Usage.Position);
+		Model octreeModel = builder.createBox(diameter * 2, diameter * 2, diameter * 2, GL20.GL_LINES, new Material(), Usage.Position);
 		internalGridInstance = new CollidableModelInstance(octreeModel, min, false);
 
 		if (diameter <= Settings.getOctreeMinSize())

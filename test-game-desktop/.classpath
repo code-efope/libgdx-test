@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/test-game"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="E:/Media/Coding/Java/lib/libgdx-1.2.0/gdx.jar"/>
-	<classpathentry kind="lib" path="E:/Media/Coding/Java/lib/libgdx-1.2.0/gdx-backend-lwjgl.jar"/>
-	<classpathentry kind="lib" path="E:/Media/Coding/Java/lib/libgdx-1.2.0/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="jars/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="jars/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="jars/gdx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

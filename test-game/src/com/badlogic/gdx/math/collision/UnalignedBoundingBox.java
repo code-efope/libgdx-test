@@ -35,6 +35,7 @@ public class UnalignedBoundingBox extends BoundingBox
 
 		// test using SAT (separating axis theorem)
 
+/*
 		float lx = Math.abs(this.cnt.x - b.cnt.x);
 		float sumx = (this.dim.x / 2.0f) + (b.dim.x / 2.0f);
 
@@ -45,5 +46,7 @@ public class UnalignedBoundingBox extends BoundingBox
 		float sumz = (this.dim.z / 2.0f) + (b.dim.z / 2.0f);
 
 		return (lx < sumx && ly < sumy && lz < sumz);
+		*/
+		return false;
 	}
 }

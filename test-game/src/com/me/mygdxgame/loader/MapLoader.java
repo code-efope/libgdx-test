@@ -69,7 +69,7 @@ public class MapLoader
 			Usage.Position | Usage.Normal | Usage.TextureCoordinates);
 		box.manageDisposable(texture);
 
-		if (type == 1)
+		if (type == Settings.SCENE_TYPE_RANDOM_BLOCKS)
 		{
 			Map<Long, Integer> modelMap = new HashMap<Long, Integer>();
 			int rounds = 0;
@@ -96,7 +96,7 @@ public class MapLoader
 			}
 			Gdx.app.log(this.getClass().getName(), "objects: " + modelMap.size());
 		}
-		else if (type == 2)
+		else if (type == Settings.SCENE_TYPE_HOUSE)
 		{
 			for (int x = 0; x < 7; x++)
 			{
@@ -110,7 +110,7 @@ public class MapLoader
 				}
 			}
 		}
-		else if (type == 3)
+		else if (type == Settings.SCENE_TYPE_BOX)
 		{
 			for (int roomX = 0; roomX < 10; roomX++)
 			{
@@ -124,7 +124,7 @@ public class MapLoader
 				}
 			}
 		}
-		else if (type == 4)
+		else if (type == Settings.SCENE_TYPE_NOISE)
 		{
 			for (int x = 0; x < 10; x++)
 			{

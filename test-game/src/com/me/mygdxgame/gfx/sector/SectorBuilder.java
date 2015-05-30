@@ -8,6 +8,10 @@ import com.me.mygdxgame.gfx.octree.DynamicOctree;
 
 public class SectorBuilder
 {
+	private final int SECTOR_TYPE_MAP = 1;
+	private final int SECTOR_TYPE_BOARD = 2;
+	private final int SECTOR_TYPE_WALL = 3;
+	
 	private final DynamicOctree<BaseSector> tree = new DynamicOctree<BaseSector>(new Vector3(0.0f, 0.0f, 0.0f), 128.0f, 4);
 	private final static int numSectorsX = 20;
 	private final static int numSectorsZ = 20;
@@ -37,7 +41,7 @@ public class SectorBuilder
 
 	public SectorBuilder(int type)
 	{
-		if (type == 1)
+		if (type == SECTOR_TYPE_MAP)
 		{
 			sector = new RectangleSector[SectorDataProvider.NUM_SECTORS];
 			for (int i = 0; i < SectorDataProvider.NUM_SECTORS; i++)
@@ -91,7 +95,7 @@ public class SectorBuilder
 
 			// sector[0].addWall(new RectangleWall(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(4.0f, 0.0f, 4.0f)));
 		}
-		else if (type == 2)
+		else if (type == SECTOR_TYPE_BOARD)
 		{
 			sector = new RectangleSector[numSectorsX * numSectorsZ];
 			Vector3 v1 = new Vector3();
@@ -153,7 +157,7 @@ public class SectorBuilder
 				}
 			}
 		}
-		else
+		else if (type == SECTOR_TYPE_WALL)
 		{
 			sector = new RectangleSector[1];
 			sector[0] = new RectangleSector();
@@ -164,6 +168,10 @@ public class SectorBuilder
 			edges[2] = new Vector3(4.0f, 0.0f, 0.0f);
 			edges[3] = new Vector3(4.0f, 0.0f, 4.0f);
 			sector[0].addWall(new BaseWall(edges, 0, new Color(0.4f, 0.7f, 0.2f, 1.0f)));
+		}
+		else
+		{
+			sector = new RectangleSector[1];
 		}
 		for (int sectorIndex = 0; sectorIndex < sector.length; sectorIndex++)
 			tree.insert(sector[sectorIndex]);

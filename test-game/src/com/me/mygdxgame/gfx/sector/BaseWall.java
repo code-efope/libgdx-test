@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
@@ -19,6 +18,9 @@ import com.badlogic.gdx.utils.Array;
 import com.me.mygdxgame.gfx.model.CollidableModelInstance;
 import com.me.mygdxgame.interfaces.Treeable;
 
+/*
+ * the new static VertexAttribute.XXX-methods provide the correct aliases for the used shader
+ */
 public class BaseWall implements Treeable
 {
 	protected final static short[] ORDERED_INDICES =
@@ -137,20 +139,23 @@ public class BaseWall implements Treeable
 		{
 			mesh = new Mesh(true, valsPerVert * 4,
 				4, //
-				new VertexAttribute(Usage.Position, 3, "a_position"),
-				new VertexAttribute(Usage.Normal, 3, "a_nomal"),
-				new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));
+				VertexAttribute.Position(),
+				VertexAttribute.Normal(),
+				VertexAttribute.TexCoords(0)
+				);
 		}
 		else if (texture != null)
 		{
 			mesh = new Mesh(true, valsPerVert * 4,
 				4, //
-				new VertexAttribute(Usage.Position, 3, "a_position"),
-				new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));			
+				VertexAttribute.Position(),
+				VertexAttribute.TexCoords(0)
+				);			
 		}
 		else
 			mesh = new Mesh(true, valsPerVert * 4, 4, //
-				new VertexAttribute(Usage.Position, 3, "a_position"));
+					VertexAttribute.Position()
+			);
 
 		mesh.setVertices(vertices);
 		mesh.setIndices(ORDERED_INDICES);

@@ -29,6 +29,7 @@ public class DynamicOctree<T extends Treeable> extends BaseOctree<T>
 	private final Array<T> instances = new Array<T>();
 	private static final boolean talk = false;
 	private final CollidableModelInstance internalGridInstance;
+	private final Vector3 out = new Vector3();
 
 	public DynamicOctree(final Vector3 center, final float diameter)
 	{
@@ -109,7 +110,7 @@ public class DynamicOctree<T extends Treeable> extends BaseOctree<T>
 		if (children == null)
 			instances.add(newInstance);
 		else
-			res = getChildren(newInstance.getBounds().getCenter()).insert(newInstance);
+			res = getChildren(newInstance.getBounds().getCenter(out)).insert(newInstance);
 
 		// if instance was added to self, check if partitioning is needed
 		if (instances.size > maxInstances)
@@ -122,14 +123,14 @@ public class DynamicOctree<T extends Treeable> extends BaseOctree<T>
 					createChildren();
 					/* move all instances to children, including newly inserted instance */
 					for (T instance : instances)
-						res = getChildren(instance.getBounds().getCenter()).insert(
+						res = getChildren(instance.getBounds().getCenter(out)).insert(
 							instance);
 					instances.clear();
 				}
 				/* just add to child */
 				else
 				{
-					res = getChildren(newInstance.getBounds().getCenter()).insert(
+					res = getChildren(newInstance.getBounds().getCenter(out)).insert(
 						newInstance);
 					if (res)
 						instances.removeValue(newInstance, true);

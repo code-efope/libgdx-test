@@ -20,8 +20,9 @@ public class InputMapper
 			public static final int TOGGLE_LIGHT = Keys.L;
 			public static final int TOGGLE_COLLISION = Keys.C;
 			public static final int TOGGLE_HUD = Keys.H;
+			public static final int TOGGLE_POLYGONS = Keys.P;
 			public static final int TOGGLE_OCTREES = Keys.O;
-			public static final int TOGGLE_PORTALS = Keys.P;
+			public static final int TOGGLE_PORTALS = Keys.T;
 			public static final int INCREASE_VISUAL_RANGE = Keys.PLUS;
 			public static final int DECREASE_VISUAL_RANGE = Keys.MINUS;
 			public static final int TOGGLE_CONSOLE = Keys.CONTROL_LEFT;

@@ -10,7 +10,7 @@ import com.me.mygdxgame.gfx.sector.BaseSector;
 import com.me.mygdxgame.gfx.sector.Portal;
 
 /**
- * this class is used to render every sector within the frustum
+ * this class is used to render every sector within the frustrum
  * 
  * @author deDokter
  * 
@@ -20,6 +20,7 @@ public class SectorRenderer
 	private final String className = this.getClass().getSimpleName();
 	private final Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
 	private final Camera subCam;
+	private final Vector3 out = new Vector3();
 
 	public SectorRenderer()
 	{
@@ -31,7 +32,7 @@ public class SectorRenderer
 
 	private Camera updateFrustum(final Camera camera, final Portal portal)
 	{
-		subCam.position.set(portal.getBounds().getCenter());
+		subCam.position.set(portal.getBounds().getCenter(out));
 		subCam.direction.set(camera.direction);
 		subCam.update();
 

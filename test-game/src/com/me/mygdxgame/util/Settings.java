@@ -2,8 +2,13 @@ package com.me.mygdxgame.util;
 
 public class Settings
 {
+	public static final int SCENE_TYPE_RANDOM_BLOCKS = 1;
+	public static final int SCENE_TYPE_HOUSE = 2;
+	public static final int SCENE_TYPE_BOX = 3;
+	public static final int SCENE_TYPE_NOISE = 4;
+	
 	private static int VISUAL_RANGE = 1900;
-	private static final int SCENE_TYPE = 1;
+	private static final int SCENE_TYPE = SCENE_TYPE_RANDOM_BLOCKS;
 	private static final float MOVEMENT_DISTANCE = 0.1f;
 	private static final float COLLISION_DISTANCE = 1.0f;
 	private static final float COLLISION_DISTANCE2 = COLLISION_DISTANCE * COLLISION_DISTANCE;
@@ -15,6 +20,7 @@ public class Settings
 	private static boolean LIGHTING_ACTIVE = false;
 	private static boolean HUD_ACTIVE = true;
 	private static boolean CONSOLE_ACTIVE = false;
+	private static boolean SHOW_POLYGONS = true;
 	private static boolean SHOW_OCTREES = false;
 	private static boolean SHOW_PORTALS = true;
 
@@ -96,6 +102,16 @@ public class Settings
 	public static void toggleConsole()
 	{
 		CONSOLE_ACTIVE = !CONSOLE_ACTIVE;
+	}
+
+	public static boolean showPolygons()
+	{
+		return SHOW_POLYGONS;
+	}
+	
+	public static void toggleShowPolygons()
+	{
+		SHOW_POLYGONS = !SHOW_POLYGONS;
 	}
 
 	public static boolean showOctrees()

@@ -105,7 +105,8 @@ public class StaticOctree<T extends Treeable> extends BaseOctree<T>
 	@Override
 	public boolean insert(T instance)
 	{
-		Vector3 position = instance.getBounds().getCenter();
+		Vector3 out = null;
+		Vector3 position = instance.getBounds().getCenter(out);
 		if (Math.abs(position.x - center.x) <= diameter &&
 			Math.abs(position.y - center.y) <= diameter &&
 			Math.abs(position.z - center.z) <= diameter)

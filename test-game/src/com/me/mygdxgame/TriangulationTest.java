@@ -133,7 +133,7 @@ public class TriangulationTest
 	static public void main(String[] args)
 	{
 		Polygon p = new Polygon();
-		Triangulation t = new Triangulation();
+//		Triangulation t = new Triangulation();
 		Scanner sc = new Scanner(System.in);
 		p.n = sc.nextInt();
 		for(int i=0;i<p.n;i++)
@@ -143,5 +143,6 @@ public class TriangulationTest
 		}
 		System.out.printf(" area via triangulation = %f\n", area_triangulation(p));
 		System.out.printf(" area slick = %f\n", area(p));
+		sc.close();
 	}
 }

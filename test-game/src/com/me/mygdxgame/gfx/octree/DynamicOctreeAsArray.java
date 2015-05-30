@@ -93,9 +93,11 @@ public class DynamicOctreeAsArray<T extends Treeable> extends BaseOctree<T>
 	public boolean insert(T newInstance)
 	{
 		boolean res = true;
+		Vector3 out = null;
+		
 		if (talk)
 		{
-			Gdx.app.log(this.getClass().getName(), "insert " + newInstance.getBounds().getCenter() + " into "
+			Gdx.app.log(this.getClass().getName(), "insert " + newInstance.getBounds().getCenter(out) + " into "
 				+ center + ":" + diameter);
 		}
 		/* first insert the instance, when tree gets to big, just create children and move data */
@@ -108,13 +110,13 @@ public class DynamicOctreeAsArray<T extends Treeable> extends BaseOctree<T>
 				createChildren();
 				/* move all instances to children, including newly inserted instance */
 				for (T instance : instances)
-					res = children.get(baseIndex + getChildrenIndex(instance.getBounds().getCenter())).insert(instance);
+					res = children.get(baseIndex + getChildrenIndex(instance.getBounds().getCenter(out))).insert(instance);
 				instances.clear();
 			}
 			/* just add to child */
 			else
 			{
-				res = children.get(baseIndex + getChildrenIndex(newInstance.getBounds().getCenter())).insert(newInstance);
+				res = children.get(baseIndex + getChildrenIndex(newInstance.getBounds().getCenter(out))).insert(newInstance);
 				if (res)
 					instances.removeValue(newInstance, true);
 			}

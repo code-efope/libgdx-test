@@ -50,9 +50,6 @@ public class EngineTest implements ApplicationListener
 		DisplayMode[] modes = Gdx.graphics.getDisplayModes();
 		for (DisplayMode mode: modes)
 			Gdx.app.log(className, mode.toString());
-		
-		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-//		Gdx.gl.glEnable(GL20.GL_ALPHA_TEST);
 	}
 
 	@Override

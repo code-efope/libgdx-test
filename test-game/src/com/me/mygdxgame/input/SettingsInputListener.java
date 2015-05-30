@@ -21,6 +21,8 @@ public class SettingsInputListener extends InputAdapter
 			Settings.increaseVisualRange();
 		else if (keycode == InputMapper.KEYS.SETTINGS.DECREASE_VISUAL_RANGE)
 			Settings.decreaseVisualRange();
+		else if (keycode == InputMapper.KEYS.SETTINGS.TOGGLE_POLYGONS)
+			Settings.toggleShowPolygons();
 		else if (keycode == InputMapper.KEYS.SETTINGS.TOGGLE_OCTREES)
 			Settings.toggleShowOctrees();
 		else if (keycode == InputMapper.KEYS.SETTINGS.TOGGLE_PORTALS)

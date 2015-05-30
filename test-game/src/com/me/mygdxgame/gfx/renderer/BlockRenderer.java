@@ -13,7 +13,6 @@ public class BlockRenderer
 {
 	private static final String DEFAULT_MAP_NAME = "maps/default.map";
 	private final String className = this.getClass().getSimpleName();
-	private boolean showPolygons;
 	private DynamicOctree<CollidableModelInstance> internalTree;
 	private MapLoader loader;
 
@@ -40,18 +39,12 @@ public class BlockRenderer
 
 		Gdx.app.log(className, "instances: " + internalTree.getLoad(true));
 		Gdx.app.log(className, "octrees: " + internalTree.getLoad(false));
-		setShowPolygons(true);
-	}
-
-	public void setShowPolygons(boolean value)
-	{
-		showPolygons = value;
 	}
 
 	public Array<CollidableModelInstance> getInstances(Frustum frustum)
 	{
 		Array<CollidableModelInstance> instances = new Array<CollidableModelInstance>();
-		if (showPolygons)
+		if (Settings.showPolygons())
 			instances.addAll(internalTree.getInstances(frustum));
 		if (Settings.showOctrees())
 			instances.addAll(internalTree.getOctreeInstances(frustum));

@@ -47,6 +47,7 @@ public abstract class BaseSector implements SectorIf, Treeable
 	 */
 	protected final UnalignedBoundingBox bounds = new UnalignedBoundingBox();
 	protected CollidableModelInstance boundsInstance;
+	private final Vector3 out = new Vector3();
 
 	@Override
 	public void addWall(final BaseWall wall)
@@ -57,9 +58,18 @@ public abstract class BaseSector implements SectorIf, Treeable
 		else
 			bounds.ext(wall.bounds);
 
-		Vector3 size = bounds.getDimensions();
+		Vector3 size = bounds.getDimensions(out);
 		boundsInstance = new CollidableModelInstance(ModelBuilderUtil.getInstance().getBox(size.x, size.y, size.z, GL20.GL_LINES, new Color(0.5f, 0.3f, 0.6f, 0.5f)));
-		boundsInstance.transform.setToTranslation(bounds.getCenter());
+		boundsInstance.transform.setToTranslation(bounds.getCenter(out));
+		
+		/*
+		 * when adding a new wall the lowest and highest z-coords are calculated
+		 * to determine if a given position is between this two coordinates.
+		 */
+		if (walls.size == 1)
+		{
+			
+		}
 	}
 
 	@Override
@@ -121,5 +131,15 @@ public abstract class BaseSector implements SectorIf, Treeable
 	public BoundingBox getBounds()
 	{
 		return bounds;
+	}
+	
+	@Override
+	public boolean isWithinSector(Vector3 position)
+	{
+		for (BaseWall wall: walls)
+		{
+			int bla = wall.mesh.getNumVertices();
+		}
+		return false;
 	}
 }
